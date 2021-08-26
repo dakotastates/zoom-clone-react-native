@@ -22,8 +22,8 @@ const HomeScreen = ({ navigation }) => {
       headerTintColor: 'black',
       headerLeft: () => (
         <View style={{ marginLeft: 20 }}>
-          <TouchableOpacity onPress={signOutUser} activeOpacity={0.5}>
-          <Button title="Logout"/>
+          <TouchableOpacity activeOpacity={0.5}>
+          <Button onPress={signOutUser} title="Logout"/>
           </TouchableOpacity>
         </View>
       ),
@@ -34,13 +34,7 @@ const HomeScreen = ({ navigation }) => {
           width: 80,
           marginRight: 20
         }}>
-          <TouchableOpacity activeOpacity={0.5}>
-            <AntDesign name='camerao' size={24} color='black' />
-          </TouchableOpacity>
 
-          <TouchableOpacity onPress={() => navigation.navigate('AddChat')} activeOpacity={0.5}>
-            <SimpleLineIcons name='pencil' size={24} color='black' />
-          </TouchableOpacity>
         </View>
       )
     });
@@ -51,7 +45,14 @@ const HomeScreen = ({ navigation }) => {
   return(
     <SafeAreaView>
       <ScrollView style={styles.container}>
-          <Text>Home</Text>
+          <Button
+            containerStyle={styles.button}
+            title="New Meeting"
+          />
+          <Button
+            containerStyle={styles.button}
+            title = "Join"
+          />
       </ScrollView>
     </SafeAreaView>
   )
@@ -60,7 +61,11 @@ const HomeScreen = ({ navigation }) => {
 export default HomeScreen
 
 const styles = StyleSheet.create({
-  constainer: {
-    height: '100%'
-  }
+  container: {
+
+  },
+  button: {
+    width: 200,
+    marginTop: 10,
+  },
 })
