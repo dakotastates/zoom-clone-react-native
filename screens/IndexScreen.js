@@ -2,8 +2,19 @@ import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { Button } from 'react-native-elements';
 import { StatusBar } from 'expo-status-bar';
+import { auth } from '../firebase'
 
 const IndexScreen = ( { navigation }) => {
+
+  useEffect(()=>{
+    const unsubscribe = auth.onAuthStateChanged((authUser)=>{
+      console.log(authUser)
+      if(authUser){
+        navigation.replace('Home')
+      }
+    })
+    return unsubscribe
+  }, [])
 
   return(
     <View style={styles.container}>

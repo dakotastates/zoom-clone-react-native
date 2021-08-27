@@ -7,6 +7,7 @@ import JoinScreen from './screens/JoinScreen'
 import LoginScreen from './screens/LoginScreen'
 import RegisterScreen from './screens/RegisterScreen'
 import HomeScreen from './screens/HomeScreen'
+import RoomScreen from './screens/RoomScreen'
 
 import { createStackNavigator } from '@react-navigation/stack';
 
@@ -24,7 +25,7 @@ export default function App() {
   return (
     <NavigationContainer  >
       <Stack.Navigator
-        initialRouteName='Index'
+        initialRouteName='Home'
         screenOptions={globalScreenOptions}
       >
         <Stack.Screen name='Index' component={IndexScreen}/>
@@ -32,6 +33,7 @@ export default function App() {
         <Stack.Screen name='Login' component={LoginScreen}/>
         <Stack.Screen name='Register' component={RegisterScreen}/>
         <Stack.Screen name='Home' component={HomeScreen}/>
+        <Stack.Screen name='Room' component={RoomScreen}/>
 
       </Stack.Navigator>
     </NavigationContainer>

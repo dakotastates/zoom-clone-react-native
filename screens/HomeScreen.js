@@ -1,16 +1,16 @@
 import React, { useLayoutEffect, useState, useEffect } from 'react';
-import { StyleSheet, Text, View, ScrollView } from 'react-native';
-import { SafeAreaView, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
+import { TouchableOpacity } from 'react-native';
 import { Button } from 'react-native-elements';
 import { auth, db } from '../firebase'
-import { AntDesign, SimpleLineIcons } from '@expo/vector-icons'
+import { v4 as uuidv4 } from 'uuid';
 
 const HomeScreen = ({ navigation }) => {
 
 
   const signOutUser = () =>{
     auth.signOut().then(()=>{
-      navigation.replace('Login')
+      navigation.replace('Index')
     })
   }
 
@@ -43,18 +43,18 @@ const HomeScreen = ({ navigation }) => {
 
 
   return(
-    <SafeAreaView>
-      <ScrollView style={styles.container}>
+    <View style={styles.container}>
           <Button
             containerStyle={styles.button}
             title="New Meeting"
+            onPress={() => navigation.navigate('Room', {id: uuidv4()})}
           />
           <Button
             containerStyle={styles.button}
             title = "Join"
+            onPress={() => navigation.navigate('Join')}
           />
-      </ScrollView>
-    </SafeAreaView>
+    </View>
   )
 }
 
@@ -62,7 +62,11 @@ export default HomeScreen
 
 const styles = StyleSheet.create({
   container: {
-
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 10,
+    backgroundColor: 'white'
   },
   button: {
     width: 200,
