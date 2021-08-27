@@ -1,15 +1,141 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useLayoutEffect } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { Button } from 'react-native-elements';
 import { StatusBar } from 'expo-status-bar';
 import Icon from 'react-native-vector-icons/FontAwesome';
-// import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
-// import { faMicrophone, faVideo } from '@fortawesome/free-solid-svg-icons'
+
 
 const RoomScreen = ( { navigation, route }) => {
+
+  const [toggleChat, setToggleChat] = useState(false)
+  const [toggleParticipants, setToggleParticipants] = useState(false)
+
+  useLayoutEffect(()=>{
+    navigation.setOptions({
+      headerShown: false
+    });
+  }, [navigation])
+
+
+  const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      backgroundColor: '#242324'
+    },
+    button: {
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      alignItems: 'center',
+      padding: '8px 10px',
+      minWidth: '80px',
+      backgroundColor: '#1c1E20',
+    },
+    footer: {
+      position: 'absolute',
+      left: 0,
+      right: 0,
+      bottom: 0
+    },
+    mainControls: {
+      display: 'flex',
+      flexDirection: 'row',
+      backgroundColor: '#1c1E20',
+      color: '#D2D2D2',
+      padding: '5px',
+      justifyContent: 'space-between',
+    },
+    controlsBlock: {
+      display: 'flex',
+      flexDirection: 'row',
+    },
+    leaveButton: {
+      backgroundColor: '#1c1E20',
+    },
+    videoChatContainer: {
+      display: 'flex',
+      flex: 1,
+      justifyContent: 'center',
+      flexDirection: 'row',
+      marginBottom: '10px'
+    },
+    left: {
+      flex: 0.8,
+      display: 'flex',
+      flexDirection: 'column'
+    },
+    right: {
+      flex: 0.2,
+      display: 'flex',
+      // flexDirection: 'column',
+      backgroundColor: '#242324',
+      // borderLeft: '1px solid #3D3D42'
+    },
+    video: {
+      flexGrow: 1,
+      backgroundColor: 'black',
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center'
+    },
+    chatWindow: {
+      flex: .5,
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      // backgroundColor: 'orange'
+    },
+    chatWindowOnly: {
+      flex: 1,
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      // backgroundColor: 'yellow'
+    },
+    chatWindowClosed: {
+      flex: 0,
+    },
+    participantsWindow:{
+      flex: .5,
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      // backgroundColor: 'blue'
+    },
+    participantsWindowOnly:{
+      flex: 1,
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      // backgroundColor: 'red'
+    },
+    participantsWindowClosed:{
+      flex: 0,
+    },
+    rightContainer: {
+      flex: 1
+    }
+
+  })
+
+
+
+
   return(
+
     <View style={styles.container}>
-      <Text>Room Id: {route.params.roomId}</Text>
+
+      <View style={styles.videoChatContainer}>
+        <View style={[toggleChat || toggleParticipants ? styles.left : {flex: 1}]}>
+          <View style={styles.video}><Text>Video</Text></View>
+        </View>
+        <View style={[toggleChat || toggleParticipants ? styles.right : {flex: 0}]}>
+          <View style={styles.rightContainer}>
+            <View style={[toggleParticipants && toggleChat ? styles.participantsWindow : toggleParticipants && !toggleChat ? styles.participantsWindowOnly : styles.participantsWindowClosed ]}><Text>Participants Window</Text></View>
+            <View style={[toggleChat && toggleParticipants ? styles.chatWindow : toggleChat && !toggleParticipants ? styles.chatWindowOnly : styles.chatWindowClosed]}><Text>Chat Window</Text></View>
+          </View>
+        </View>
+      </View>
 
       <View style={styles.footer}>
       <View style={styles.mainControls}>
@@ -62,6 +188,7 @@ const RoomScreen = ( { navigation, route }) => {
                 color="white"
               />
             }
+            onPress={() => setToggleParticipants(!toggleParticipants)}
             title="Participants"
           />
           <Button
@@ -76,6 +203,7 @@ const RoomScreen = ( { navigation, route }) => {
                 color="white"
               />
             }
+            onPress={() => setToggleChat(!toggleChat)}
             title="Chat"
           />
         </View>
@@ -100,42 +228,7 @@ const RoomScreen = ( { navigation, route }) => {
   )
 }
 
+
 export default RoomScreen
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#242324'
-  },
-  button: {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: '8px 10px',
-    minWidth: '80px',
-    backgroundColor: 'inherit',
-  },
-  footer: {
-    position: 'absolute',
-    left: 0,
-    right: 0,
-    bottom: 0
-  },
-  mainControls: {
-    display: 'flex',
-    flexDirection: 'row',
-    backgroundColor: '#1c1E20',
-    color: '#D2D2D2',
-    padding: '5px',
-    justifyContent: 'space-between',
-  },
-  controlsBlock: {
-    display: 'flex',
-    flexDirection: 'row',
-  },
-  leaveButton: {
-    backgroundColor: 'inherit',
-  }
-
-})
+// <Text>Room Id: {route.params.roomId}</Text>
