@@ -23,7 +23,22 @@ const globalScreenOptions = {
 
 export default function App() {
   return (
-    <NavigationContainer  >
+    <NavigationContainer
+      linking={{
+       prefixes: ["http://localhost:19006/"],
+       config: {
+         screens: {
+           Index: "",
+           Home: "home",
+           Join: "join",
+           Login: "login",
+           Register: "register",
+           Room: "room/:roomId"
+         }
+       }
+     }}
+
+    >
       <Stack.Navigator
         initialRouteName='Home'
         screenOptions={globalScreenOptions}
@@ -34,6 +49,7 @@ export default function App() {
         <Stack.Screen name='Register' component={RegisterScreen}/>
         <Stack.Screen name='Home' component={HomeScreen}/>
         <Stack.Screen name='Room' component={RoomScreen}/>
+
 
       </Stack.Navigator>
     </NavigationContainer>

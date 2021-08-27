@@ -47,7 +47,7 @@ const HomeScreen = ({ navigation }) => {
           <Button
             containerStyle={styles.button}
             title="New Meeting"
-            onPress={() => navigation.navigate('Room', {id: uuidv4()})}
+            onPress={() => navigation.navigate('Room', {roomId: uuidv4()})}
           />
           <Button
             containerStyle={styles.button}
